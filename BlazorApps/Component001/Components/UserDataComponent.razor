@@ -1,0 +1,43 @@
+﻿@using Component001.Model;
+
+@if (isEditing)
+{
+    <div>
+        <input type="text" @bind="editedName" />
+        <button @onclick="SaveChanges">Salvar</button>
+    </div>
+}
+else
+{
+    <div>
+        <strong>@UserData.Name</strong>
+        <button @onclick="StartEditing">Editar</button>
+    </div>
+}
+
+
+@code {
+    private string editedName;
+    private bool isEditing = false;
+
+    [Parameter]
+    public User UserData { get; set; }
+
+    [Parameter]
+    public EventCallback<User> OnSave { get; set; }
+
+    private void StartEditing()
+    {
+        editedName = UserData.Name;
+        isEditing = true;
+    }
+
+    private void SaveChanges()
+    {
+        UserData.Name = editedName;
+        isEditing = false;
+        OnSave.InvokeAsync(UserData);
+    }
+}
+
+

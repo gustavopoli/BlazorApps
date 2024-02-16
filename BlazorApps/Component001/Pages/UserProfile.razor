@@ -1,0 +1,18 @@
+﻿@page "/user-profile"
+
+@using Component001.Components
+@using Component001.Model
+
+<h3>User Profile</h3>
+
+<UserDataComponent UserData="@currentUser" OnSave="SaveUser" />
+
+@code {
+    private User currentUser = new User();
+
+    private void SaveUser(User updatedUser)
+    {
+        Console.WriteLine($"Usuario Salvo...:  {updatedUser.Name}");
+    }
+
+}
